@@ -528,6 +528,28 @@ async def auto_send_deadlines(
 
         print("❌ LMS LOGIN ERROR:", err)
 
+        error_msg = (
+            "⚠️ LMS tizimiga ulanib bo‘lmadi.\n\n"
+            "Ehtimol:\n"
+            "• LMS vaqtincha ishlamayapti\n"
+            "• Internet muammosi bor\n"
+            "• Server javob bermayapti\n\n"
+            "Iltimos, keyinroq /bugun kommandasini bosish orqali qayta urinib ko‘ring."
+        )
+
+        for chat_id in users:
+
+            try:
+
+                await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=error_msg
+                )
+
+            except Exception as e:
+
+                print(f"❌ {chat_id} ga yuborilmadi:", e)
+
         return
 
     tests = find_today_tests(session)
@@ -620,8 +642,8 @@ async def main():
     app.job_queue.run_daily(
         auto_send_deadlines,
         time=time(
-            hour=11,
-            minute=18,
+            hour=8,
+            minute=0,
             tzinfo=TASHKENT_TZ
         )
     )
