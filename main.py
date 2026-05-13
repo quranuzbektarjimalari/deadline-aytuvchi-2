@@ -569,11 +569,28 @@ async def start(
 
     await update.message.reply_text(
         "✅ Siz botga muvaffaqiyatli ulandingiz.\n\n"
-        "⏰ Endi har kuni soat 08:00 da "
-        "deadline avtomatik yuboriladi.\n\n"
+        "⏰ Endi har kuni sizga soat 08:00 da "
+        "joriy kun deadlinelari yuboriladi.\n\n"
         "📌 Qo‘lda tekshirish uchun: /bugun"
     )
 
+
+# =========================================
+# 👥 USERS COUNT
+# =========================================
+
+async def users_count(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE
+):
+
+    users = load_users()
+
+    count = len(users)
+
+    await update.message.reply_text(
+        f"👥 Bot foydalanuvchilari soni: {count} ta"
+    )
 
 # =========================================
 # 🤖 MAIN
@@ -585,7 +602,8 @@ async def main():
 
     # /start
     app.add_handler(CommandHandler("start", start))
-
+    # /users
+    app.add_handler(CommandHandler("users", users_count))
     # /bugun
     app.add_handler(
         CommandHandler(
@@ -601,12 +619,13 @@ async def main():
     app.job_queue.run_daily(
         auto_send_deadlines,
         time=time(
-            hour=8,
-            minute=0,
+            hour=11,
+            minute=10,
             tzinfo=TASHKENT_TZ
         )
     )
-
+    
+        
     print("✅ Bot ishga tushdi.")
 
     await app.run_polling()
