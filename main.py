@@ -443,23 +443,13 @@ def build_message(tests, assignments):
 
         for title, subject, deadline, link in tests:
 
-            msg += (
-                f"📘 *Test:* *{title}*\n"
-                f"🕒 Tugash: {deadline}\n"
-                f"👉 {subject}\n"
-                f"[Ko‘rish]({link})\n\n"
-            )
+            msg += f"📘 *Test:* *{title}* ([ko‘rish]({link}))\n🕒 Tugash: {deadline}\n👉 {subject}\n\n"
 
     if assignments:
 
         for title, subject, deadline, link in assignments:
 
-            msg += (
-                f"📕 *Topshiriq:* *{title}*\n"
-                f"🕒 Tugash: {deadline}\n"
-                f"👉 {subject}\n"
-                f"[Ko‘rish]({link})\n\n"
-            )
+            msg += f"📕 *Topshiriq:* *{title}* ([ko‘rish]({link}))\n🕒 Tugash: {deadline}\n👉 {subject}\n\n"
 
     return msg
 
@@ -642,8 +632,8 @@ async def main():
     app.job_queue.run_daily(
         auto_send_deadlines,
         time=time(
-            hour=8,
-            minute=0,
+            hour=11,
+            minute=43,
             tzinfo=TASHKENT_TZ
         )
     )
