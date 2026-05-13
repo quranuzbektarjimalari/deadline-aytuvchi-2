@@ -474,7 +474,7 @@ async def send_today_deadlines(
 ):
 
     chat = update.effective_chat
-
+    save_user(chat.id)
     temp_msg = await context.bot.send_message(
         chat_id=chat.id,
         text="🙋‍♂️ Bugungi deadlinelar tekshirilmoqda..."
@@ -583,7 +583,8 @@ async def users_count(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE
 ):
-
+    save_user(update.effective_chat.id)
+    
     users = load_users()
 
     count = len(users)
@@ -620,7 +621,7 @@ async def main():
         auto_send_deadlines,
         time=time(
             hour=11,
-            minute=10,
+            minute=18,
             tzinfo=TASHKENT_TZ
         )
     )
