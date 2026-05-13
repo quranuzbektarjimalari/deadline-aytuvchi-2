@@ -632,8 +632,8 @@ async def main():
     app.job_queue.run_daily(
         auto_send_deadlines,
         time=time(
-            hour=11,
-            minute=43,
+            hour=8,
+            minute=0,
             tzinfo=TASHKENT_TZ
         )
     )
